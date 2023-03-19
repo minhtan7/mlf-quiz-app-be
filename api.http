@@ -1,0 +1,74 @@
+//TEST
+
+GET http://localhost:5000/api/tests
+
+###
+
+POST http://localhost:5000/api/tests
+content-type: application/json
+
+{
+    "title": "sample"
+}
+
+###
+//QUESTIONS
+GET http://localhost:5000/api/questions
+
+###
+POST http://localhost:5000/api/questions/multipleChoice
+content-type: application/json
+
+{
+    "questionText":"He is ____ influenced by his father and grandfather. His behaviors and decisions are exactly the same.",
+    "categoryIds":["6415f9ed72f84e4e09f1799d"],
+    "options":[
+        "mighty",
+        "strongly",
+        "terribly",
+        "weakly"
+    ],
+    "answers":[1],
+    "explaination":"loremsipum loremsipum loremsipum loremsipum loremsipum loremsipum"
+}
+
+###
+PUT http://localhost:5000/api/questions/64139c1fa61b75e962fa2d20
+content-type: application/json
+
+{
+    "testId":"6415f11888ff53f7594e0a82",
+    "answers":[2,3]
+}
+
+###
+//Category
+GET http://localhost:5000/api/categories
+
+###
+POST http://localhost:5000/api/categories
+content-type: application/json
+
+{
+    "name":"terminology"
+}
+
+###
+//Attempt
+
+###
+POST http://localhost:5000/api/attempts
+content-type: application/json
+
+{
+    "email":"tan.vopm@gmail.com",
+    "name":"tan vo ",
+    "job":"Bác sĩ",
+    "test":"6415f11888ff53f7594e0a82",
+    "answers" : [
+        {
+            "question":"64139c1fa61b75e962fa2d20",
+            "userAnswer": [2,3]
+        }
+    ]
+}

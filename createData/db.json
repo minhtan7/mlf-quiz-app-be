@@ -1,0 +1,39 @@
+{
+    "title": "Đề thi thử Kì thi Anh Văn y khoa",
+    "questions": [
+        {
+            "questionText": "He is ____ influenced by his father and grandfather. His behaviors and decisions are exactly the same.",
+            "categories": [
+                "terminology"
+            ],
+            "options": [
+                "mighty",
+                "strongly",
+                "terribly",
+                "weakly"
+            ],
+            "answers": [
+                1
+            ],
+            "explanation": "loremsipum loremsipum loremsipum loremsipum loremsipum loremsipum",
+            "type": "MultipleChoice"
+        },
+        {
+            "questionText": "He is ____ influenced by his father and grandfather. His behaviors and decisions are exactly the same.",
+            "categories": [
+                "terminology"
+            ],
+            "options": [
+                "mighty",
+                "strongly",
+                "terribly",
+                "weakly"
+            ],
+            "answers": [
+                1
+            ],
+            "explanation": "loremsipum loremsipum loremsipum loremsipum loremsipum loremsipum",
+            "type": "MultipleChoice"
+        }
+    ]
+}
