@@ -1,5 +1,6 @@
+const { createSlug } = require("../helpers/slug.helper");
 const Category = require("../model/Category");
-const { MultipleChoice } = require("../model/Question");
+const { MultipleChoice, Question } = require("../model/Question");
 const Test = require("../model/Test");
 const APIFeature = require("../utils/apiFeature");
 const db = require("./db.json")
@@ -21,9 +22,12 @@ const createTestnQuestions = async (db) => {
 }
 
 const createTest = async (title) => {
+    Test.collection.drop()
+    Question.collection.drop()
     const test = await new Test({
         title
     });
+    console.log(createSlug(title))
     await test.save()
     return test
 }

@@ -34,6 +34,176 @@
             ],
             "explanation": "loremsipum loremsipum loremsipum loremsipum loremsipum loremsipum",
             "type": "MultipleChoice"
+        },
+        {
+            "questionText": "Squid Game is not appropriate for kids under the age of 17, ______?",
+            "categories": [
+                "terminology"
+            ],
+            "options": [
+                "does not",
+                "isn't it",
+                "is it",
+                "doesn't it"
+            ],
+            "answers": [
+                2
+            ],
+            "explanation": "loremsipum loremsipum loremsipum loremsipum loremsipum loremsipum",
+            "type": "MultipleChoice"
+        },
+        {
+            "questionText": "If something electricity and heat, it allows electricity or heat to ________ travel along and through it.",
+            "categories": [
+                "terminology"
+            ],
+            "options": [
+                "carries",
+                "transfers",
+                "conducts",
+                "exchanges"
+            ],
+            "answers": [
+                3
+            ],
+            "explanation": "loremsipum loremsipum loremsipum loremsipum loremsipum loremsipum",
+            "type": "MultipleChoice"
+        },
+        {
+            "questionText": "After feeling off ________ for days, Tom finally went to see his doctor.",
+            "categories": [
+                "terminology"
+            ],
+            "options": [
+                "food",
+                "color",
+                "fitness",
+                "balance"
+            ],
+            "answers": [
+                0
+            ],
+            "explanation": "loremsipum loremsipum loremsipum loremsipum loremsipum loremsipum",
+            "type": "MultipleChoice"
+        },
+        {
+            "questionText": "When traveling in Europe, we tried to ________ at least an hour in a medieval town to explore it.",
+            "categories": [
+                "terminology"
+            ],
+            "options": [
+                "stop out",
+                "stop off",
+                "stop up",
+                "stop in"
+            ],
+            "answers": [
+                2
+            ],
+            "explanation": "loremsipum loremsipum loremsipum loremsipum loremsipum loremsipum",
+            "type": "MultipleChoice"
+        },
+        {
+            "questionText": "He is ____ influenced by his father and grandfather. His behaviors and decisions are exactly the same.",
+            "categories": [
+                "terminology"
+            ],
+            "options": [
+                "mighty",
+                "strongly",
+                "terribly",
+                "weakly"
+            ],
+            "answers": [
+                1
+            ],
+            "explanation": "loremsipum loremsipum loremsipum loremsipum loremsipum loremsipum",
+            "type": "MultipleChoice"
+        },
+        {
+            "questionText": "He is ____ influenced by his father and grandfather. His behaviors and decisions are exactly the same.",
+            "categories": [
+                "terminology"
+            ],
+            "options": [
+                "mighty",
+                "strongly",
+                "terribly",
+                "weakly"
+            ],
+            "answers": [
+                1
+            ],
+            "explanation": "loremsipum loremsipum loremsipum loremsipum loremsipum loremsipum",
+            "type": "MultipleChoice"
+        },
+        {
+            "questionText": "Squid Game is not appropriate for kids under the age of 17, ______?",
+            "categories": [
+                "terminology"
+            ],
+            "options": [
+                "does not",
+                "isn't it",
+                "is it",
+                "doesn't it"
+            ],
+            "answers": [
+                2
+            ],
+            "explanation": "loremsipum loremsipum loremsipum loremsipum loremsipum loremsipum",
+            "type": "MultipleChoice"
+        },
+        {
+            "questionText": "If something electricity and heat, it allows electricity or heat to ________ travel along and through it.",
+            "categories": [
+                "terminology"
+            ],
+            "options": [
+                "carries",
+                "transfers",
+                "conducts",
+                "exchanges"
+            ],
+            "answers": [
+                3
+            ],
+            "explanation": "loremsipum loremsipum loremsipum loremsipum loremsipum loremsipum",
+            "type": "MultipleChoice"
+        },
+        {
+            "questionText": "After feeling off ________ for days, Tom finally went to see his doctor.",
+            "categories": [
+                "terminology"
+            ],
+            "options": [
+                "food",
+                "color",
+                "fitness",
+                "balance"
+            ],
+            "answers": [
+                0
+            ],
+            "explanation": "loremsipum loremsipum loremsipum loremsipum loremsipum loremsipum",
+            "type": "MultipleChoice"
+        },
+        {
+            "questionText": "When traveling in Europe, we tried to ________ at least an hour in a medieval town to explore it.",
+            "categories": [
+                "terminology"
+            ],
+            "options": [
+                "stop out",
+                "stop off",
+                "stop up",
+                "stop in"
+            ],
+            "answers": [
+                2
+            ],
+            "explanation": "loremsipum loremsipum loremsipum loremsipum loremsipum loremsipum",
+            "type": "MultipleChoice"
         }
     ]
 }
