@@ -15,7 +15,6 @@ testController.getTests = catchAsync(async (req, res, next) => {
 
     features = new APIFeature(Test.find(), req.query).filter().sortFields().limitFields().paginate()
     const tests = await features.query.populate("questions")
-
     sendResponse(res, 200, true, { tests, totalPage, page, totalTest }, null, "Get Tests")
 })
 

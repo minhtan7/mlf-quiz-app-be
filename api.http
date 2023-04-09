@@ -1,10 +1,10 @@
 //TEST
 
-GET http://localhost:5000/api/tests
+GET http://localhost:5001/api/tests
 
 ###
 
-POST http://localhost:5000/api/tests
+POST http://localhost:5001/api/tests
 content-type: application/json
 
 {
@@ -13,10 +13,10 @@ content-type: application/json
 
 ###
 //QUESTIONS
-GET http://localhost:5000/api/questions
+GET http://localhost:5001/api/questions
 
 ###
-POST http://localhost:5000/api/questions/multipleChoice
+POST http://localhost:5001/api/questions/multipleChoice
 content-type: application/json
 
 {
@@ -33,7 +33,7 @@ content-type: application/json
 }
 
 ###
-PUT http://localhost:5000/api/questions/64139c1fa61b75e962fa2d20
+PUT http://localhost:5001/api/questions/64139c1fa61b75e962fa2d20
 content-type: application/json
 
 {
@@ -43,21 +43,21 @@ content-type: application/json
 
 ###
 //Category
-GET http://localhost:5000/api/categories
+GET http://localhost:5001/api/categories
 
 ###
-POST http://localhost:5000/api/categories
+POST http://localhost:5001/api/categories
 content-type: application/json
 
 {
-    "name":"terminology"
+    "name":"ngsl"
 }
 
 ###
 //Attempt
 
 ###
-POST http://localhost:5000/api/attempts
+POST http://localhost:5001/api/attempts
 content-type: application/json
 
 {
@@ -71,4 +71,25 @@ content-type: application/json
             "userAnswer": [2,3]
         }
     ]
+}
+
+###
+# create lead
+POST http://localhost:5001/api/leads
+content-type: application/json
+
+{
+    "email":"ttt@gmail.com",
+    "name":"tan vo ",
+    "job":"Bác sĩ",
+    "password":"abc"
+}
+
+###
+POST http://localhost:5001/api/auth/login
+content-type: application/json
+
+{
+    "email":"tm@gmail.com",
+    "password":"abc"
 }

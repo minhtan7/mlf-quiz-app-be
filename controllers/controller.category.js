@@ -11,7 +11,7 @@ categoryController.getCategories = catchAsync(async (req, res, next) => {
     page = parseInt(req.query.page) || 1
 
     features = new APIFeature(Category.find(), req.query).filter().sortFields().limitFields().paginate()
-    const categories = await features.query.populate("topic")
+    const categories = await features.query
 
     sendResponse(res, 200, true, { categories, totalPage, page, totalCategory }, null, "Get Categories")
 })

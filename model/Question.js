@@ -13,8 +13,10 @@ const questionSchema = Schema({
 
 const multipleChoiceSchema = Schema({
     options: { type: [String], require: true },
-    answers: { type: [Number], require: true }
+    answers: { type: [Number], require: true },
+    inputType: { type: String, require: true, enum: ["radio", "checkbox"], default: "radio" }
 })
+
 
 const fillInTheBlankSchema = Schema({
     answers: { type: [String], require: true }

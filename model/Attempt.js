@@ -10,9 +10,34 @@ const attemptSchema = Schema({
             result: { type: Boolean, require: true }
         }
     ],
+    takingTime: { type: Number, require: true, default: 0 }, //save seconds
     score: { type: Number, require: true, default: 0 },
     totalQuestion: { type: Number, require: true, default: 0 },
+}, {
+    timestamps: true
 })
+
+attemptSchema.methods.countResults = function () {
+    let trueCount = 0;
+    let falseCount = 0;
+    let unansweredCount = 0;
+
+    this.answers.forEach((answer) => {
+        if (answer.userAnswer.length === 0) {
+            unansweredCount++;
+        } else if (answer.result) {
+            trueCount++;
+        } else {
+            falseCount++;
+        }
+    });
+
+    return {
+        trueCount,
+        falseCount,
+        unansweredCount,
+    };
+};
 
 const Attempt = new model("Attempt", attemptSchema)
 module.exports = Attempt

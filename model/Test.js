@@ -4,7 +4,9 @@ const { createSlug } = require("../helpers/slug.helper");
 const testSchema = Schema({
     title: { type: String, require: true, trim: true },
     questions: { type: [Schema.Types.ObjectId], ref: "Question", require: true, deffault: [] },
-    slug: { type: String, require: true, trim: true, lowercase: true, unique: true }
+    slug: { type: String, require: true, trim: true, lowercase: true, unique: true },
+    duration: { type: Number, require: true, default: 0 }, //seconds
+    category: { type: Schema.Types.ObjectId, ref: "Category", require: true, default: null }
 }, {
     timestamps: true
 })

@@ -2,7 +2,7 @@ const createSlug = (str, index) => {
     const a = 'àáâđèéêìíòóôùú'
     const b = 'aaadeeeiiooouu'
     const p = new RegExp(a.split('').join('|'), 'g')
-    str.toString().toLowerCase()
+    str = str.toString().toLowerCase()
         .replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a')
         .replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e')
         .replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i')
