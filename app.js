@@ -13,7 +13,7 @@ const { sendResponse } = require('./helpers/utils.helper');
 main().catch(err => console.log(err));
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/quiz');
+    await mongoose.connect(process.env.MONGODB_URI);
 }
 
 var app = express();
