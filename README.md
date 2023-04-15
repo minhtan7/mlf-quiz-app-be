@@ -1,4 +1,4 @@
-# Med Lang Fanatic - Back end 2 QUIZ
+# Med Lang Fanatic | Back end 2 - QUIZ
 Med Lang Fanatic is an innovative medical English course platform designed for medical professionals and students looking to enhance their English skills in the medical field. The Vietnam-based start-up offers a wide range of engaging courses and valuable resources to help users elevate their medical English proficiency.
 
 This comprehensive project consists of a frontend repository and two backend repositories (Backend 1 and Backend 2).
