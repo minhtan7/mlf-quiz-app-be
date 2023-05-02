@@ -9,13 +9,13 @@ const attemptController = {}
 
 attemptController.getAttempts = catchAsync(async (req, res, next) => {
     const id = req.leadId
-    const query = req.query + `&lead=${id}`
+    const query = { ...req.query, lead: id }
     let features = new APIFeature(Attempt.find(), query).filter().sortFields().limitFields()
     const totalAttempts = await features.query.countDocuments()
     const totalPage = Math.ceil(totalAttempts / (parseInt(req.query.limit) || 9))
     page = parseInt(req.query.page) || 1
 
-    features = new APIFeature(Attempt.find(), req.query).filter().sortFields().limitFields().paginate()
+    features = new APIFeature(Attempt.find(), query).filter().sortFields().limitFields().paginate()
     const attempts = await features.query.populate("test").populate("lead").populate({ path: "answers", populate: "question" })
     sendResponse(res, 200, true, { attempts, totalPage, page, totalAttempts }, null, "Get Attempts")
 })
@@ -29,14 +29,10 @@ attemptController.getAttemptById = catchAsync(async (req, res, next) => {
 })
 
 attemptController.createAttempt = catchAsync(async (req, res, next) => {
-    const { email, name, job, test: testId, answers, takingTime } = req.body
-    console.log(answers)
-    let lead = await Lead.findOne({ email })
-    if (!lead) {
-        lead = await Lead.create({
-            email, name, job
-        })
-    }
+    const leadId = req.leadId
+    const { testId, answers, takingTime, testType } = req.body
+    let lead = await Lead.findById(leadId)
+
     // const leadDoc = await Lead.findById(lead)
     //missing handle case where lead not exista
     //missing handle case where test not exist
@@ -66,7 +62,7 @@ attemptController.createAttempt = catchAsync(async (req, res, next) => {
     // const score = result.reduce((total, r) => total += r ? 1 : 0, 0)
 
     let attempt = await Attempt.create({
-        lead: lead._id, test: testId, answers, score, totalQuestion, takingTime
+        lead: lead._id, test: testId, answers, score, totalQuestion, takingTime, testType
     })
 
     return sendResponse(res, 200, true, attempt, false, "Attempt created.")

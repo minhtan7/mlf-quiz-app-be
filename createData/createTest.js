@@ -1,17 +1,19 @@
 const { createSlug } = require("../helpers/slug.helper");
 const Category = require("../model/Category");
 const { MultipleChoice, Question } = require("../model/Question");
-const Test = require("../model/Test");
+const { PlainTest, Test } = require("../model/Test");
+
 const APIFeature = require("../utils/apiFeature");
 const db = require("./question.json")
-
+require("dotenv").config()
 
 const mongoose = require('mongoose');
 
 main().catch(err => console.log(err));
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/quiz');
+    // await mongoose.connect("mongodb+srv://tanvo:tanvo@cluster0.sziu54b.mongodb.net/quiz?retryWrites=true&w=majority");
+    await mongoose.connect("mongodb://127.0.0.1:27017/quiz");
 }
 
 
@@ -19,9 +21,9 @@ const createTestnQuestions = async (db) => {
     Test.collection.drop()
     Question.collection.drop()
     for (let key in db) {
-        let { title, questions, category, duration } = db[key]
+        let { title, questions, category, duration, displaySlug } = db[key]
         duration = questions.length * duration
-        const test = await createTest(title, duration, category)
+        const test = await createTest(title, duration, category, displaySlug)
         await createQuestions(test, questions)
     }
 }
@@ -31,10 +33,10 @@ const CATS = {
     "medical terminology": "642c1a1d5c5ec2c6dab54796",
     "New General Service List": "64309013780b77e115d4d900"
 }
-const createTest = async (title, duration, category) => {
+const createTest = async (title, duration, category, displaySlug) => {
 
-    const test = await new Test({
-        title, duration, category: CATS[category]
+    const test = await new PlainTest({
+        title, duration, category: CATS[category], displaySlug
     });
 
     await test.save()

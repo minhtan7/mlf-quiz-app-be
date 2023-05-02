@@ -1,6 +1,6 @@
 const { createSlug } = require("../helpers/slug.helper");
 const { catchAsync, sendResponse, AppError } = require("../helpers/utils.helper")
-const Test = require("../model/Test");
+const { Test } = require("../model/Test");
 const APIFeature = require("../utils/apiFeature")
 
 

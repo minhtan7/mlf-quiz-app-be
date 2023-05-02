@@ -19,5 +19,8 @@ router.use("/questions", questionApi)
 const attemptApi = require("./attempt")
 router.use("/attempts", attemptApi)
 
+const feedbackApi = require("./feedback")
+router.use("/feedbacks", feedbackApi)
+
 
 module.exports = router;

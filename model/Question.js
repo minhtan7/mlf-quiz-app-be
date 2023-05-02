@@ -19,7 +19,8 @@ const multipleChoiceSchema = Schema({
 
 
 const fillInTheBlankSchema = Schema({
-    answers: { type: [String], require: true }
+    answers: { type: [String], require: true, trim: true },
+
 })
 
 

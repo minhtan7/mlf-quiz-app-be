@@ -14,13 +14,13 @@ class APIFeature {
 
         const queryObjParsed = JSON.parse(queryStr);
 
+        console.log("queryObj", this.queryString)
         if (this.queryString.category) {
             const categoryIds = this.queryString.category.split(',').map((id) => id);
             queryObjParsed.category = { $in: categoryIds };
         }
 
         this.query.find(queryObjParsed);
-
         // this.query.find(JSON.parse(queryStr))
         return this
     }

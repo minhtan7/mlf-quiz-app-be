@@ -1,17 +1,54 @@
 const { Schema, model } = require("mongoose");
 const { createSlug } = require("../helpers/slug.helper");
 
-const testSchema = Schema({
+const baseTestSchema = new Schema({
     title: { type: String, require: true, trim: true },
-    questions: { type: [Schema.Types.ObjectId], ref: "Question", require: true, deffault: [] },
+    description: { type: String },
     slug: { type: String, require: true, trim: true, lowercase: true, unique: true },
+    questions: { type: [Schema.Types.ObjectId], ref: 'Question', require: true, default: [] },
     duration: { type: Number, require: true, default: 0 }, //seconds
-    category: { type: Schema.Types.ObjectId, ref: "Category", require: true, default: null }
+    category: { type: Schema.Types.ObjectId, ref: 'Category', require: true, default: null },
+    displaySlug: { type: String },
+    testType: {
+        type: String,
+        required: true,
+        enum: ['plain', 'reading', 'listening']
+    }
 }, {
-    timestamps: true
-})
+    timestamps: true,
+    discriminatorKey: 'testType'
+});
 
-testSchema.pre('save', async function (next) {
+const testPartSchema = new Schema({
+    title: { type: String, trim: true },
+    content: { type: String },
+    questions: { type: [Schema.Types.ObjectId], ref: 'Question', required: true },
+    audioLink: { type: String }
+});
+
+const readingPartSchema = new Schema({
+    title: { type: String, trim: true },
+    content: { type: String },
+    questions: { type: [Schema.Types.ObjectId], ref: 'Question', required: true },
+});
+
+
+// Multiple choice test schema
+const plainTestSchema = new Schema({});
+
+// Reading test schema
+const readingTestSchema = new Schema({
+    parts: { type: [readingPartSchema], required: true }
+});
+
+// Listening test schema
+const listeningTestSchema = new Schema({
+    parts: { type: [testPartSchema], required: true }
+});
+
+
+
+baseTestSchema.pre('save', async function (next) {
     if (!this.slug) {
         let index = 0;
         let unique = false;
@@ -31,5 +68,9 @@ testSchema.pre('save', async function (next) {
     next();
 });
 
-const Test = new model("Test", testSchema)
-module.exports = Test
+const Test = model('Test', baseTestSchema);
+const PlainTest = Test.discriminator('plain', plainTestSchema);
+const ReadingTest = Test.discriminator('reading', readingTestSchema);
+const ListeningTest = Test.discriminator('listening', listeningTestSchema);
+
+module.exports = { Test, PlainTest, ReadingTest, ListeningTest };
