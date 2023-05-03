@@ -1,6 +1,7 @@
 const { catchAsync, sendResponse, AppError } = require("../helpers/utils.helper");
 const Lead = require("../model/Lead");
 const Attempt = require("../model/Attempt");
+const { Test } = require("../model/Test");
 const { Question } = require("../model/Question");
 const { equalsArray } = require("../helpers/method.helper");
 const APIFeature = require("../utils/apiFeature");
@@ -33,12 +34,14 @@ attemptController.createAttempt = catchAsync(async (req, res, next) => {
     const { testId, answers, takingTime, testType } = req.body
     let lead = await Lead.findById(leadId)
 
+    let wrongAnswer = 0
     // const leadDoc = await Lead.findById(lead)
     //missing handle case where lead not exista
     //missing handle case where test not exist
 
     const questionsIds = answers.map(a => a.question)
     const questions = await Question.find({ _id: { $in: questionsIds } }).select("_id type options answers").lean()
+
 
     const questionMap = new Map()
     questions.forEach(q => questionMap.set(q._id.toString(), q))
@@ -50,7 +53,10 @@ attemptController.createAttempt = catchAsync(async (req, res, next) => {
             if (equalsArray(answer.userAnswer, question.answers)) {
                 score++
                 answer.result = true
+            } else if (answer.userAnswer.length == 0) {
+                answer.result = false
             } else {
+                wrongAnswer++
                 answer.result = false
             }
         }
@@ -62,7 +68,8 @@ attemptController.createAttempt = catchAsync(async (req, res, next) => {
     // const score = result.reduce((total, r) => total += r ? 1 : 0, 0)
 
     let attempt = await Attempt.create({
-        lead: lead._id, test: testId, answers, score, totalQuestion, takingTime, testType
+        lead: lead._id, test: testId, answers, score, totalQuestion, takingTime, testType,
+        wrongAnswer
     })
 
     return sendResponse(res, 200, true, attempt, false, "Attempt created.")

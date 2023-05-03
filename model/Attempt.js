@@ -23,6 +23,7 @@ const attemptSchema = Schema({
     ],
     takingTime: { type: Number, require: true, default: 0 }, //save seconds
     score: { type: Number, require: true, default: 0 },
+    wrongAnswer: { type: Number, require: true, default: 0 },
     totalQuestion: { type: Number, require: true, default: 0 },
     testType: {
         type: String,
