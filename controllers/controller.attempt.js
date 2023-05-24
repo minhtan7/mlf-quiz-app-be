@@ -1,6 +1,6 @@
 const { catchAsync, sendResponse, AppError } = require("../helpers/utils.helper");
 const Lead = require("../model/Lead");
-const Attempt = require("../model/Attempt");
+const { Attempt } = require("../model/Attempt");
 const { Test } = require("../model/Test");
 const { Question } = require("../model/Question");
 const { equalsArray } = require("../helpers/method.helper");
@@ -10,6 +10,7 @@ const attemptController = {}
 
 attemptController.getAttempts = catchAsync(async (req, res, next) => {
     const id = req.leadId
+    console.log("trigger deploy")
     const query = { ...req.query, lead: id }
     let features = new APIFeature(Attempt.find(), query).filter().sortFields().limitFields()
     const totalAttempts = await features.query.countDocuments()
@@ -38,8 +39,26 @@ attemptController.createAttempt = catchAsync(async (req, res, next) => {
     // const leadDoc = await Lead.findById(lead)
     //missing handle case where lead not exista
     //missing handle case where test not exist
+    const TESTTYPE = {
+        plain: "PlainAttempt",
+        listening: "ListeningAttempt",
+        ListeningAttempt: "ListeningAttempt",
+        reading: "ReadingAttempt"
 
-    const questionsIds = answers.map(a => a.question)
+    }
+    console.log(answers)
+    // const questionsIds = answers.map(a => a.question)
+    let questionsIds = []
+    if (TESTTYPE[testType] === "ListeningAttempt") {
+        questionsIds = answers.reduce((acc, ele) => {
+            console.log(ele)
+            const qs = ele.questionGroup.questions.map(e => e.question)
+            return [...acc, qs]
+        }, [])
+    } else {
+        questionsIds = answers.map(a => a.question)
+    }
+
     const questions = await Question.find({ _id: { $in: questionsIds } }).select("_id type options answers").lean()
 
 
@@ -47,20 +66,40 @@ attemptController.createAttempt = catchAsync(async (req, res, next) => {
     questions.forEach(q => questionMap.set(q._id.toString(), q))
     let score = 0
     const totalQuestion = answers.length
-    answers.forEach(answer => {
-        const question = questionMap.get(answer.question)
-        if (question.type === 'MultipleChoice' | question.type === 'FillInTheBlank') {
-            if (equalsArray(answer.userAnswer, question.answers)) {
-                score++
-                answer.result = true
-            } else if (answer.userAnswer.length == 0) {
-                answer.result = false
-            } else {
-                wrongAnswer++
-                answer.result = false
+    console.log(answers)
+    if (TESTTYPE[testType] === "ListeningAttempt") {
+        answers.forEach(answerGroup => {
+            const answer = answerGroup.questionGroup.questions
+            const question = questionMap.get(answer.question)
+            if (question.type === 'MultipleChoice' || question.type === 'FillInTheBlank' || question.type === 'ListeningTest') {
+                if (equalsArray(answer.userAnswer, question.answers)) {
+                    score++
+                    answer.result = true
+                } else if (answer.userAnswer.length == 0) {
+                    answer.result = false
+                } else {
+                    wrongAnswer++
+                    answer.result = false
+                }
             }
-        }
-    })
+        })
+    } else {
+
+        answers.forEach(answer => {
+            const question = questionMap.get(answer.question)
+            if (question.type === 'MultipleChoice' | question.type === 'FillInTheBlank') {
+                if (equalsArray(answer.userAnswer, question.answers)) {
+                    score++
+                    answer.result = true
+                } else if (answer.userAnswer.length == 0) {
+                    answer.result = false
+                } else {
+                    wrongAnswer++
+                    answer.result = false
+                }
+            }
+        })
+    }
     // const questions = await Question.find({ _id: { $in: answers.question } })
 
     // const result = answers.map(a => a.question.isAnswerCorrect(a.userAnswer))
@@ -68,7 +107,7 @@ attemptController.createAttempt = catchAsync(async (req, res, next) => {
     // const score = result.reduce((total, r) => total += r ? 1 : 0, 0)
 
     let attempt = await Attempt.create({
-        lead: lead._id, test: testId, answers, score, totalQuestion, takingTime, testType,
+        lead: lead._id, test: testId, answers, score, totalQuestion, takingTime, testType: TESTTYPE[testType],
         wrongAnswer
     })
 
