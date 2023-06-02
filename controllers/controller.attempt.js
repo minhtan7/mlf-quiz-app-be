@@ -1,6 +1,6 @@
 const { catchAsync, sendResponse, AppError } = require("../helpers/utils.helper");
 const Lead = require("../model/Lead");
-const { Attempt } = require("../model/Attempt");
+const Attempt = require("../model/Attempt");
 const { Test } = require("../model/Test");
 const { Question } = require("../model/Question");
 const { equalsArray } = require("../helpers/method.helper");
@@ -10,7 +10,7 @@ const attemptController = {}
 
 attemptController.getAttempts = catchAsync(async (req, res, next) => {
     const id = req.leadId
-    console.log("trigger deploy")
+    console.log("trigger deploy", Attempt)
     const query = { ...req.query, lead: id }
     let features = new APIFeature(Attempt.find(), query).filter().sortFields().limitFields()
     const totalAttempts = await features.query.countDocuments()
