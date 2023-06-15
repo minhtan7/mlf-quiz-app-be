@@ -11,7 +11,6 @@ const attemptController = {}
 attemptController.getAttempts = catchAsync(async (req, res, next) => {
     const id = req.leadId
     console.log("trigger deploy", Attempt)
-    console.log("trigger deploy", Attempt)
     const query = { ...req.query, lead: id }
     let features = new APIFeature(Attempt.find(), query).filter().sortFields().limitFields()
     const totalAttempts = await features.query.countDocuments()
