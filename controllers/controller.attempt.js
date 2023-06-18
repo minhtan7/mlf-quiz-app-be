@@ -107,7 +107,7 @@ attemptController.createAttempt = catchAsync(async (req, res, next) => {
     // const score = result.reduce((total, r) => total += r ? 1 : 0, 0)
 
     let attempt = await Attempt.create({
-        lead: lead._id, test: testId, answers, score, totalQuestion, takingTime, testType: TESTTYPE[testType],
+        lead: lead._id, test: testId, answers, score, totalQuestion, takingTime, testType: testType,
         wrongAnswer
     })
 
